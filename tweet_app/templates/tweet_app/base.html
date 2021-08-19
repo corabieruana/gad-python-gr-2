@@ -1,0 +1,153 @@
+
+<!-- cream acest base.html care va fi mostenit de mai multe rute
+ astfel daca vrem sa facem o modificare, in toate rutele se va modifica codul html  -->
+
+
+<!--
+base.html = parinte template 
+about.html & home.html=child template
+-->
+
+{% load static %}  <!-- astfel putem incarca fisierul mian.css din folderul static   -->
+
+<!DOCTYPE html>     <!-- shortcut: scrii HTML si dai tab si iti creaza cod basic html    -->
+<html>
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	  <!-- Required meta tags -->																										 <!--  cod              -->
+    <meta charset="utf-8">																												 <!--  starter          -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">												 <!-- template bootsrap-->   																										
+    <!-- Bootstrap CSS -->																												 <!-- luat de pe linkul -->
+    <!-- Latest compiled and minified CSS 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">--> <!--https://getbootstrap.com/docs/3.4/getting-started/-->                                                                       			       <!--https://getbootstrap.com/docs/4.1/getting-started/introduction/-->
+  
+    
+<!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+    <link rel="stylesheet" type="text/css" href="{% static 'tweet_app/main.css' %}">  
+
+
+
+<!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+	<meta charset="utf-8">
+	{% if title %}
+		<title>Witchy Hub {{ title }}</title>
+	{% else %}
+		<title>Witchy Hub</title>
+	{% endif %}
+
+
+
+
+
+</head>
+
+<!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+
+<body>
+
+
+    <!--un snippet pentru navbar -->
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+            <div class="container">
+                <a class="navbar-brand mr-4" href="{% url 'tweet_app-home' %}">Witchy Hub Romania</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <div class="navbar-nav mr-auto">
+                        <a class="nav-item nav-link" href="{% url 'post-create' %}">Postare Noua</a>
+                        <a class="nav-item nav-link" href="{% url 'tweet_app-home' %}">Acasa</a>
+                        <a class="nav-item nav-link" href="{% url 'tweet_app-about' %}">Despre</a>
+                    </div>
+                    <!-- Navbar -->
+                    <div class="navbar-nav">
+                        {% if user.is_authenticated %}
+                            
+
+                            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+                            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                        {% else %}
+                            <a class="nav-item nav-link" href="{% url 'login' %}">Logare</a>
+                            <a class="nav-item nav-link" href="{% url 'register' %}">Inregistrare</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+<!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-8">
+                {% if messages %}
+
+                    {% for message in messages %}
+                        <div class="alert alert - {{ message.tags }} ">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                {% block content %}{% endblock %}   <!-- child templates cand overwrite this section  -->
+
+
+  <!-- SIDEBAR-UL(snippet) -->              
+            </div>
+            <div class="col-md-4">
+                <div class="content-section-sidebar">
+
+                    <h3>Witchcraft</h3>
+                    <p class='text-muted'>Ghiduri si informatii utile
+
+                        <a class="nav-item nav-link" href="{% url 'tweet_app-potiuni' %}">Potiuni</a>
+                        <a class="nav-item nav-link" href="{% url 'tweet_app-cristale' %}">Cristale</a>
+                        <a class="nav-item nav-link" href="{% url 'tweet_app-manifestari' %}">Manifestari</a>
+                        <a class="nav-item nav-link" href="{% url 'tweet_app-numerologie' %}">Numerologie</a>
+                        <a class="nav-item nav-link" href="{% url 'tweet_app-ritualuri' %}">Ritualuri</a>
+                        <a class="nav-item nav-link" href="{% url 'tweet_app-incantatii' %}">Tarot</a>
+                        <a class="nav-item nav-link" href="{% url 'tweet_app-blesteme' %}">Desfacerea blestemelor</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+<!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+
+
+
+
+<!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+ 	<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- cod pt a putea utiliza bootstrap CSS classes -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+</html>
