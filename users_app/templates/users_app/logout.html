@@ -1,0 +1,22 @@
+
+
+
+{% extends "tweet_app/base.html" %}  <!-- register.html mosteneste codul din base.html -->
+
+
+
+{% block content %}    <!-- urmatoarea sectiune de cod va suprascrie sectiunea de block content a base.html -->
+
+	<h2>Tocmai v-ati delogat!</h2>
+	<div class="border-top pt-3">
+		<small class="text-muted">
+			Vreti sa va logati din nou? <a class="ml-2" href="{% url 'login' %}">Click aici!</a>
+		</small>
+	</div>
+
+{% endblock content %}
+
+
+
+
+
